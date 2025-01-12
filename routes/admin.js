@@ -75,9 +75,16 @@ adminRouter.put("/", function(req, res){
     })
 })
 
-adminRouter.get("/bulk", function(req, res){
+adminRouter.get("/course/bulk", adminMiddleware,async function(req, res) {
+    const adminId = req.userId;
+
+    const courses = await courseModel.find({
+        creatorId: adminId 
+    });
+
     res.json({
-        message: "signin endpoint"
+        message: "Course updated",
+        courses
     })
 })
 
